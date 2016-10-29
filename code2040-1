@@ -1,0 +1,13 @@
+import requests
+
+headers = {'content-type': 'application/json'}
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c", 'github':"https://github.com/arespin/code2040"}
+
+r = requests.post("http://challenge.code2040.org/api/register",
+ data=json.dumps(payload), headers=headers)
+
+
+
+
+
