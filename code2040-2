@@ -1,0 +1,17 @@
+import requests
+import json
+
+headers = {'content-type': 'application/json'}
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c"}
+
+r = requests.post("http://challenge.code2040.org/api/reverse",
+ data=json.dumps(payload), headers=headers)
+
+
+r = r.text
+print(r)
+r = r[::-1]
+print(r)
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c", 'string': r}
+g = requests.post("http://challenge.code2040.org/api/reverse/validate", data=json.dumps(payload), headers=headers)

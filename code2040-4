@@ -1,0 +1,27 @@
+import requests
+import json
+import ast
+
+headers = {'content-type': 'application/json'}
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c"}
+
+r = requests.post("http://challenge.code2040.org/api/prefix",
+ data=json.dumps(payload), headers=headers)
+
+
+r = r.text
+dictionary = ast.literal_eval(r)
+prefix = dictionary["prefix"]
+pre_len = len(prefix)
+lst = dictionary['array']
+ret = []
+for word in lst:
+	if word[:pre_len] == prefix:
+		continue
+	else:
+		ret.append(word)
+
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c", 'array': ret}
+g = requests.post("http://challenge.code2040.org/api/prefix/validate", data=json.dumps(payload), headers=headers)

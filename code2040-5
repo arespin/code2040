@@ -1,0 +1,27 @@
+import requests
+import json
+import ast
+import datetime
+from datetime import timedelta
+
+headers = {'content-type': 'application/json'}
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c"}
+
+r = requests.post("http://challenge.code2040.org/api/dating",
+ data=json.dumps(payload), headers=headers)
+
+
+r = r.text
+dictionary = ast.literal_eval(r)
+datestamp = dictionary['datestamp']
+interval = dictionary['interval']
+
+mytime = datetime.datetime.strptime(datestamp,'%Y-%m-%dT%H:%M:%SZ')
+mytime += timedelta(seconds = interval)
+
+ret = mytime.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+payload = {'token': "18dcb9f123047505f894f6287e0b0c5c", 'datestamp': ret}
+g = requests.post("http://challenge.code2040.org/api/dating/validate", data=json.dumps(payload), headers=headers)
